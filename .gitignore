@@ -216,3 +216,25 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Chặn đẩy các file dữ liệu (tránh vượt quá giới hạn 100MB của GitHub)
+data/
+!data/.gitkeep
+*.csv
+*.tsv
+*.dat
+*.parquet
+*.json
+
+# Chặn đẩy các file mô hình Machine Learning sau khi train (rất nặng)
+models/
+!models/.gitkeep
+*.pkl
+*.h5
+*.pt
+*.pth
+*.joblib
+
+# Chặn thư mục cấu hình của trình soạn thảo code (để không bị conflict cấu hình giữa các máy)
+.vscode/
+.idea/

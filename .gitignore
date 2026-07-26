@@ -218,7 +218,7 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Chặn đẩy các file dữ liệu (tránh vượt quá giới hạn 100MB của GitHub)
-data/
+data/*
 !data/.gitkeep
 *.csv
 *.tsv
@@ -227,7 +227,7 @@ data/
 *.json
 
 # Chặn đẩy các file mô hình Machine Learning sau khi train (rất nặng)
-models/
+models/*
 !models/.gitkeep
 *.pkl
 *.h5

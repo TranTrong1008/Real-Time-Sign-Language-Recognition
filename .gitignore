@@ -238,3 +238,16 @@ models/*
 # Chặn thư mục cấu hình của trình soạn thảo code (để không bị conflict cấu hình giữa các máy)
 .vscode/
 .idea/
+
+# Chặn file mảng tọa độ (Rất quan trọng cho khâu trích xuất của Thành viên 2)
+*.npy
+*.npz
+
+# Chặn file mô hình Keras phiên bản mới (Bổ sung cho Thành viên 1)
+*.keras
+
+# Chặn file Video thô tải từ Hugging Face hoặc lưu từ webcam
+*.mp4
+*.avi
+*.mkv
+*.mov

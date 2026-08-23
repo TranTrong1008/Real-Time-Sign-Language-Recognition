@@ -8,3 +8,9 @@ opencv-python==4.9.0.80
 mediapipe==1.0.0
 streamlit==1.32.0
 gTTS==2.5.1
+
+# Streamlit và WebRTC tương thích với cấu trúc protobuf của Tensorflow 2.15.0
+# streamlit==1.25.0
+# streamlit-webrtc==0.49.3
+# protobuf<4.21.0,>=3.20.3
+# protobuf (thư viện quản lý cấu trúc dữ liệu của Google: tensorflow, streamlit-webrtc,...)

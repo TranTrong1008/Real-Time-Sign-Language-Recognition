@@ -8,3 +8,4 @@ opencv-python==4.9.0.80
 mediapipe==1.0.0
 streamlit==1.32.0
 gTTS==2.5.1
+pygame==2.6.1

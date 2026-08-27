@@ -5,7 +5,7 @@ scikit-learn==1.4.1.post1
 tqdm==4.66.2
 tensorflow==2.15.0
 opencv-python==4.9.0.80
-mediapipe==1.0.0
+mediapipe==0.10.21
 streamlit==1.32.0
-gTTS==2.5.1
-pygame==2.6.1
+streamlit-webrtc==0.47.7
+av==12.0.0

@@ -224,13 +224,13 @@ data/*
 *.tsv
 *.dat
 *.parquet
-*.json
+# *.json (Đã comment để cho phép push các file lstm_history.json trong thư mục results/)
 
 # Chặn đẩy các file mô hình Machine Learning sau khi train (rất nặng)
-models/*
-!models/.gitkeep
+# models/* (Đã comment để cho phép push các file trọng số vào thư mục models/)
+# !models/.gitkeep
 *.pkl
-*.h5
+# *.h5 (Đã comment để cho phép push các file mô hình Keras)
 *.pt
 *.pth
 *.joblib

@@ -1,22 +1,20 @@
-"""Streamlit web application for real-time Vietnamese sign recognition."""
-
+"""thinh_Streamlit web application for real-time Vietnamese sign recognition."""
 from __future__ import annotations
-
 import json
 import threading
 from collections import deque
 from pathlib import Path
 from typing import Any
-
 import cv2
 import numpy as np
 import streamlit as st
+from PIL import Image, ImageDraw, ImageFont
+from streamlit_autorefresh import st_autorefresh
 
 try:
     import av
     import mediapipe as mp
     from streamlit_webrtc import RTCConfiguration, VideoProcessorBase, webrtc_streamer
-
     WEBRTC_AVAILABLE = True
     WEBRTC_IMPORT_ERROR = ""
 except ImportError as exc:  # Keep the Overview page usable before dependencies are installed.
@@ -35,10 +33,23 @@ CONFIDENCE_THRESHOLD = 0.8
 STABLE_FRAMES = 10
 MAX_SENTENCE_WORDS = 5
 
+UNICODE_FONT_CANDIDATES = (
+    Path("C:/Windows/Fonts/segoeui.ttf"),
+    Path("C:/Windows/Fonts/arial.ttf"),
+    Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
+)
+
 MODEL_REGISTRY = {
     "LSTM": ("lstm_best.keras", "lstm_model.keras", "lstm_best.h5", "lstm_model.h5"),
     "BiLSTM": ("bilstm_best.keras", "bilstm_model.keras", "bilstm_best.h5", "bilstm_model.h5"),
-    "1D-CNN": ("cnn1d_best.keras", "1d_cnn_best.keras", "cnn1d_best.h5", "1d_cnn_best.h5"),
+    "1D-CNN": (
+        "cnn1d_best.keras",
+        "cnn1d_model.keras",
+        "1d_cnn_best.keras",
+        "cnn1d_best.h5",
+        "cnn1d_model.h5",
+        "1d_cnn_best.h5",
+    ),
     "Transformer": ("transformer_best.keras", "transformer_best.h5"),
     "ST-GCN": ("stgcn_best.keras", "st_gcn_best.keras", "stgcn_best.h5", "st_gcn_best.h5"),
 }
@@ -52,7 +63,6 @@ LABEL_FILES = (
     BASE_DIR / "data" / "label_classes.npy",
 )
 
-
 def discover_models() -> tuple[dict[str, Path], list[str]]:
     """Return the first existing artifact for each model and readable missing-model messages."""
     available: dict[str, Path] = {}
@@ -64,7 +74,6 @@ def discover_models() -> tuple[dict[str, Path], list[str]]:
         else:
             available[display_name] = path
     return available, missing
-
 
 def load_labels() -> tuple[list[str] | None, str | None]:
     """Load ordered class names without allowing pickled NumPy objects."""
@@ -113,6 +122,25 @@ def validate_model(model: Any, labels: list[str] | None) -> tuple[bool, str]:
 
 def _connection_indices(connections: Any) -> list[int]:
     return sorted({index for edge in connections for index in edge})
+
+
+def load_unicode_font(size: int) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
+    """Load a cross-platform font that can render Vietnamese characters."""
+    for font_path in UNICODE_FONT_CANDIDATES:
+        if font_path.is_file():
+            return ImageFont.truetype(str(font_path), size=size)
+    return ImageFont.load_default()
+
+
+def draw_frame_overlay(image: np.ndarray, sentence: str, status: str) -> np.ndarray:
+    """Draw Unicode text on an OpenCV BGR frame using Pillow."""
+    rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    canvas = Image.fromarray(rgb_image)
+    draw = ImageDraw.Draw(canvas)
+    draw.rectangle((0, 0, image.shape[1], 72), fill=(28, 28, 28))
+    draw.text((12, 5), sentence, font=load_unicode_font(22), fill=(255, 255, 255))
+    draw.text((12, 43), status, font=load_unicode_font(16), fill=(80, 220, 130))
+    return cv2.cvtColor(np.asarray(canvas), cv2.COLOR_RGB2BGR)
 
 
 def face_subset_indices() -> list[int]:
@@ -263,16 +291,10 @@ class SignLanguageProcessor(VideoProcessorBase):
                     self.last_error = str(exc)
 
             sentence = " ".join(self.sentence) or "Đang chờ cử chỉ..."
-            cv2.rectangle(image, (0, 0), (image.shape[1], 72), (28, 28, 28), -1)
-            cv2.putText(image, sentence, (12, 28), cv2.FONT_HERSHEY_SIMPLEX, 0.65, (255, 255, 255), 2)
-            cv2.putText(
+            image = draw_frame_overlay(
                 image,
+                sentence,
                 f"{self.model_name} | confidence: {self.confidence:.1%} | frame: {self.frame_count}",
-                (12, 57),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.45,
-                (80, 220, 130),
-                1,
             )
         return av.VideoFrame.from_ndarray(image, format="bgr24")
 
@@ -388,6 +410,11 @@ def render_demo() -> None:
             )
             if snapshot["error"]:
                 st.warning("Frame gần nhất gặp lỗi: " + snapshot["error"])
+        if context.state.playing:
+            st_autorefresh(
+                interval=500,
+                key=f"recognition-status-refresh-{model_name}",
+            )
     else:
         with left:
             st.info("Nhấn START trong khung webcam để bắt đầu nhận diện.")

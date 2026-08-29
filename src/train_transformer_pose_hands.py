@@ -13,7 +13,7 @@ tf.keras.utils.set_random_seed(SEED)
 
 # Setup directories
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR = os.path.join(BASE_DIR, "data", "holistic")
+DATA_DIR = os.path.join(BASE_DIR, "data", "pose_hands")
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 RESULTS_DIR = os.path.join(BASE_DIR, "results")
 

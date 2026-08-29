@@ -13,17 +13,19 @@ except Exception:
 class RealTimeSignDetector:
     def __init__(
         self, 
-        model_path="models/transformer_best.keras", 
+        model_path="models/transformer_pose_hands_best.keras", 
         threshold=0.8, 
         sequence_length=30
     ):
         """
         Initializes the real-time gesture recognition detector.
+        Supports both Hands (126 features) and Pose+Hands (258 features) models.
         """
         print(f"[INFO] Loading model from {model_path}...")
         self.model = tf.keras.models.load_model(model_path)
         self.threshold = threshold
         self.sequence_length = sequence_length
+        self.expected_features = self.model.input_shape[-1]
         
         # State tracking variables for real-time inference
         self.sequence = []
@@ -37,6 +39,11 @@ class RealTimeSignDetector:
         """
         # Return empty result if no keypoints detected in the current frame
         if keypoints_1d is None:
+            return {"label": "", "confidence": 0.0, "sentence": self.sentence}
+
+        # Check feature dimension compatibility
+        if len(keypoints_1d) != self.expected_features:
+            print(f"[WARNING] Feature mismatch: Expected {self.expected_features}, got {len(keypoints_1d)}")
             return {"label": "", "confidence": 0.0, "sentence": self.sentence}
 
         # 1. Update sliding window buffer and keep only the latest 30 frames
@@ -78,6 +85,9 @@ class RealTimeSignDetector:
         }
 
     def speak_text(self, text):
+        """
+        Synthesizes Vietnamese speech from text and plays the audio.
+        """
         try:
             temp_audio = "temp_tts.mp3"
             tts = gTTS(text=text, lang="vi", slow=False)

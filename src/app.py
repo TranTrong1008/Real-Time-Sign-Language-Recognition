@@ -1,8 +1,8 @@
-"""thinh_Streamlit web application for real-time Vietnamese sign recognition."""
 from __future__ import annotations
 import json
 import threading
 from collections import deque
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 import cv2
@@ -28,10 +28,15 @@ except ImportError as exc:  # Keep the Overview page usable before dependencies 
 BASE_DIR = Path(__file__).resolve().parents[1]
 MODELS_DIR = BASE_DIR / "models"
 SEQUENCE_LENGTH = 30
-FEATURE_DIM = 534
-CONFIDENCE_THRESHOLD = 0.8
+FEATURE_DIM = 126
+CONFIDENCE_THRESHOLD = 0.6
 STABLE_FRAMES = 10
 MAX_SENTENCE_WORDS = 5
+
+
+PROCESS_WIDTH = 480     # Frame will be resize to this width before going to Holistic, to reduce computation cost
+HOLISTIC_MODEL_COMPLEXITY = 0   # may reduce accuracy of Holistic a bit, but much quicker
+
 
 UNICODE_FONT_CANDIDATES = (
     Path("C:/Windows/Fonts/segoeui.ttf"),
@@ -40,18 +45,10 @@ UNICODE_FONT_CANDIDATES = (
 )
 
 MODEL_REGISTRY = {
-    "LSTM": ("lstm_best.keras", "lstm_model.keras", "lstm_best.h5", "lstm_model.h5"),
-    "BiLSTM": ("bilstm_best.keras", "bilstm_model.keras", "bilstm_best.h5", "bilstm_model.h5"),
-    "1D-CNN": (
-        "cnn1d_best.keras",
-        "cnn1d_model.keras",
-        "1d_cnn_best.keras",
-        "cnn1d_best.h5",
-        "cnn1d_model.h5",
-        "1d_cnn_best.h5",
-    ),
-    "Transformer": ("transformer_best.keras", "transformer_best.h5"),
-    "ST-GCN": ("stgcn_best.keras", "st_gcn_best.keras", "stgcn_best.h5", "st_gcn_best.h5"),
+    "LSTM": ("lstm_model_hand.h5",),
+    "BiLSTM": ("bilstm_model_hand.h5",),
+    "1D-CNN": ("cnn1d_model_hand.h5",),
+    "Transformer": ("transformer_hands_best.keras",),
 }
 
 LABEL_FILES = (
@@ -120,43 +117,27 @@ def validate_model(model: Any, labels: list[str] | None) -> tuple[bool, str]:
     return True, ""
 
 
-def _connection_indices(connections: Any) -> list[int]:
-    return sorted({index for edge in connections for index in edge})
-
-
+@lru_cache(maxsize=8)
 def load_unicode_font(size: int) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
-    """Load a cross-platform font that can render Vietnamese characters."""
+    """Load a cross-platform font that can render Vietnamese characters.
+    Cache to make sure that font is loaded once only for each frame.
+    """
     for font_path in UNICODE_FONT_CANDIDATES:
         if font_path.is_file():
             return ImageFont.truetype(str(font_path), size=size)
     return ImageFont.load_default()
 
 
-def draw_frame_overlay(image: np.ndarray, sentence: str, status: str) -> np.ndarray:
-    """Draw Unicode text on an OpenCV BGR frame using Pillow."""
-    rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+def draw_frame_overlay(rgb_image: np.ndarray, sentence: str, status: str) -> np.ndarray:
+    """Draw Unicode text on an already-RGB frame and return a BGR frame for WebRTC.
+    Input: rgb_image (converted in recv())
+    """
     canvas = Image.fromarray(rgb_image)
     draw = ImageDraw.Draw(canvas)
-    draw.rectangle((0, 0, image.shape[1], 72), fill=(28, 28, 28))
+    draw.rectangle((0, 0, rgb_image.shape[1], 72), fill=(28, 28, 28))
     draw.text((12, 5), sentence, font=load_unicode_font(22), fill=(255, 255, 255))
     draw.text((12, 43), status, font=load_unicode_font(16), fill=(80, 220, 130))
     return cv2.cvtColor(np.asarray(canvas), cv2.COLOR_RGB2BGR)
-
-
-def face_subset_indices() -> list[int]:
-    """Build the same 92-point eyes/eyebrows/lips subset used by M2."""
-    face_mesh = mp.solutions.face_mesh
-    connections = (
-        face_mesh.FACEMESH_LIPS
-        | face_mesh.FACEMESH_LEFT_EYE
-        | face_mesh.FACEMESH_LEFT_EYEBROW
-        | face_mesh.FACEMESH_RIGHT_EYE
-        | face_mesh.FACEMESH_RIGHT_EYEBROW
-    )
-    indices = _connection_indices(connections)
-    if len(indices) != 92:
-        raise RuntimeError(f"Face subset có {len(indices)} điểm, cần đúng 92 điểm.")
-    return indices
 
 
 def _safe_scale(value: float) -> float:
@@ -169,27 +150,12 @@ def _normalize_xyz(points: np.ndarray, origin: np.ndarray, scale: float) -> np.n
     return normalized
 
 
-def extract_holistic_keypoints(results: Any, face_indices: list[int]) -> np.ndarray:
-    """Convert one MediaPipe result into a normalized 534-value feature vector."""
-    pose = np.zeros((33, 4), dtype=np.float32)
-    face = np.zeros((92, 3), dtype=np.float32)
+def extract_holistic_keypoints(results: Any) -> tuple[np.ndarray, bool, bool]:
+    """Convert one MediaPipe result into a normalized 126-value feature vector."""
     left_hand = np.zeros((21, 3), dtype=np.float32)
     right_hand = np.zeros((21, 3), dtype=np.float32)
-
-    if results.pose_landmarks:
-        pose = np.asarray(
-            [[p.x, p.y, p.z, p.visibility] for p in results.pose_landmarks.landmark], dtype=np.float32
-        )
-        shoulder_midpoint = (pose[11, :3] + pose[12, :3]) / 2.0
-        shoulder_width = float(np.linalg.norm(pose[11, :3] - pose[12, :3]))
-        pose = _normalize_xyz(pose, shoulder_midpoint, shoulder_width)
-
-    if results.face_landmarks:
-        landmarks = results.face_landmarks.landmark
-        face = np.asarray([[landmarks[i].x, landmarks[i].y, landmarks[i].z] for i in face_indices], dtype=np.float32)
-        index_map = {original: subset for subset, original in enumerate(face_indices)}
-        eye_width = float(np.linalg.norm(face[index_map[33]] - face[index_map[263]]))
-        face = _normalize_xyz(face, face.mean(axis=0), eye_width)
+    left_detected = results.left_hand_landmarks is not None
+    right_detected = results.right_hand_landmarks is not None
 
     for destination, detected in (
         (left_hand, results.left_hand_landmarks),
@@ -200,10 +166,28 @@ def extract_holistic_keypoints(results: Any, face_indices: list[int]) -> np.ndar
             hand_scale = float(np.linalg.norm(values[0] - values[9]))
             destination[:] = _normalize_xyz(values, values[0], hand_scale)
 
-    vector = np.concatenate((pose.ravel(), face.ravel(), left_hand.ravel(), right_hand.ravel()))
+    vector = np.concatenate((left_hand.ravel(), right_hand.ravel()))
     if vector.shape != (FEATURE_DIM,):
         raise ValueError(f"Feature vector có shape {vector.shape}, cần ({FEATURE_DIM},).")
-    return np.nan_to_num(vector, copy=False).astype(np.float32, copy=False)
+    vector = np.nan_to_num(vector, copy=False).astype(np.float32, copy=False)
+    return vector, left_detected, right_detected
+
+
+def interpolate_missing_frames(
+    window: np.ndarray, left_valid: np.ndarray, right_valid: np.ndarray
+) -> np.ndarray:
+    """Linearly interpolate frames where a hand wasn't detected in the sliding window."""
+    window = window.copy()
+    frame_indices = np.arange(window.shape[0])
+    for valid_mask, col_slice in ((left_valid, slice(0, 63)), (right_valid, slice(63, 126))):
+        valid_idx = frame_indices[valid_mask]
+        if valid_idx.size == 0 or valid_idx.size == window.shape[0]:
+            continue
+        block = window[:, col_slice]
+        for col in range(block.shape[1]):
+            block[:, col] = np.interp(frame_indices, valid_idx, block[valid_idx, col])
+        window[:, col_slice] = block
+    return window
 
 
 class SignLanguageProcessor(VideoProcessorBase):
@@ -214,6 +198,8 @@ class SignLanguageProcessor(VideoProcessorBase):
         self.labels = labels
         self.model_name = model_name
         self.sequence: deque[np.ndarray] = deque(maxlen=SEQUENCE_LENGTH)
+        self.left_valid: deque[bool] = deque(maxlen=SEQUENCE_LENGTH)
+        self.right_valid: deque[bool] = deque(maxlen=SEQUENCE_LENGTH)
         self.predictions: deque[int] = deque(maxlen=STABLE_FRAMES)
         self.sentence: deque[str] = deque(maxlen=MAX_SENTENCE_WORDS)
         self.current_label = ""
@@ -222,17 +208,25 @@ class SignLanguageProcessor(VideoProcessorBase):
         self.last_error = ""
         self.enabled = True
         self.lock = threading.Lock()
-        self.face_indices = face_subset_indices()
         self.holistic = mp.solutions.holistic.Holistic(
             static_image_mode=False,
-            model_complexity=1,
+            model_complexity=HOLISTIC_MODEL_COMPLEXITY,     # model_complexity=0 to reduce Holistic cost per-frame
             min_detection_confidence=0.5,
             min_tracking_confidence=0.5,
         )
+        # Warm-up when initializing, so that the first prediction 
+        # won't add more build/trace cost from TensorFlow
+        try:
+            warmup_batch = np.zeros((1, SEQUENCE_LENGTH, FEATURE_DIM), dtype=np.float32)
+            self.model(warmup_batch, training=False)
+        except Exception:
+            pass
 
     def reset(self) -> None:
         with self.lock:
             self.sequence.clear()
+            self.left_valid.clear()
+            self.right_valid.clear()
             self.predictions.clear()
             self.sentence.clear()
             self.current_label = ""
@@ -250,12 +244,20 @@ class SignLanguageProcessor(VideoProcessorBase):
                 "error": self.last_error,
             }
 
-    def _predict(self, keypoints: np.ndarray) -> None:
+    def _predict(self, keypoints: np.ndarray, left_detected: bool, right_detected: bool) -> None:
         self.sequence.append(keypoints)
+        self.left_valid.append(left_detected)
+        self.right_valid.append(right_detected)
         if len(self.sequence) < SEQUENCE_LENGTH:
             return
-        batch = np.expand_dims(np.asarray(self.sequence, dtype=np.float32), axis=0)
-        probabilities = np.asarray(self.model.predict(batch, verbose=0))[0]
+        window = interpolate_missing_frames(
+            np.asarray(self.sequence, dtype=np.float32),
+            np.asarray(self.left_valid, dtype=bool),
+            np.asarray(self.right_valid, dtype=bool),
+        )
+        batch = np.expand_dims(window, axis=0)
+        # Cal model directly to reduce overhead of model.predict()
+        probabilities = np.asarray(self.model(batch, training=False))[0]
         class_index = int(np.argmax(probabilities))
         self.confidence = float(probabilities[class_index])
         self.predictions.append(class_index)
@@ -270,29 +272,30 @@ class SignLanguageProcessor(VideoProcessorBase):
 
     def recv(self, frame: Any) -> Any:
         image = frame.to_ndarray(format="bgr24")
+
+        # Downscale before processing in order to reduce the cost of Holistic + 
+        # overlay drawing + encoding frame again, without affecting feature vector.
+        height, width = image.shape[:2]
+        if width > PROCESS_WIDTH:   # resize if frame is too big
+            scale = PROCESS_WIDTH / width
+            image = cv2.resize(image, (PROCESS_WIDTH, int(height * scale)), interpolation=cv2.INTER_AREA)
+
         with self.lock:
             self.frame_count += 1
+            rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             if self.enabled:
                 try:
-                    rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                     results = self.holistic.process(rgb)
-                    self._predict(extract_holistic_keypoints(results, self.face_indices))
-                    mp.solutions.drawing_utils.draw_landmarks(
-                        image, results.pose_landmarks, mp.solutions.holistic.POSE_CONNECTIONS
-                    )
-                    mp.solutions.drawing_utils.draw_landmarks(
-                        image, results.left_hand_landmarks, mp.solutions.holistic.HAND_CONNECTIONS
-                    )
-                    mp.solutions.drawing_utils.draw_landmarks(
-                        image, results.right_hand_landmarks, mp.solutions.holistic.HAND_CONNECTIONS
-                    )
+                    keypoints, left_detected, right_detected = extract_holistic_keypoints(results)
+                    self._predict(keypoints, left_detected, right_detected)
                     self.last_error = ""
                 except Exception as exc:  # A bad frame must not terminate the WebRTC worker.
                     self.last_error = str(exc)
 
             sentence = " ".join(self.sentence) or "Đang chờ cử chỉ..."
+            # Directly pass rgb_frame, avoid converting BGR->RGB again.
             image = draw_frame_overlay(
-                image,
+                rgb,
                 sentence,
                 f"{self.model_name} | confidence: {self.confidence:.1%} | frame: {self.frame_count}",
             )
@@ -323,13 +326,13 @@ def render_overview() -> None:
         "và nhận diện từ bằng mô hình học sâu có kết quả tốt nhất."
     )
     st.info(
-        "Webcam → Holistic (534 đặc trưng) → chuỗi 30 frame → mô hình → "
+        "Webcam → Holistic, chỉ lấy Hands (126 đặc trưng) → chuỗi 30 frame → mô hình → "
         "lọc confidence/độ ổn định → ghép từ thành câu"
     )
     st.subheader("Các mô hình được so sánh")
-    st.write("LSTM · BiLSTM · 1D-CNN · Transformer · ST-GCN")
+    st.write("LSTM · BiLSTM · 1D-CNN · Transformer")
     st.write(
-        "Mỗi mô hình được đánh giá trên cùng signer-based test split bằng Accuracy, Macro Precision, "
+        "Mỗi mô hình được đánh giá trên cùng tập test bằng Accuracy, Macro Precision, "
         "Macro Recall, Macro F1-score và Confusion Matrix."
     )
 
@@ -368,7 +371,7 @@ def render_demo() -> None:
                 for message in missing:
                     st.write(f"- {message}")
             else:
-                st.write("Đã tìm thấy đủ 5 model.")
+                st.write("Đã tìm thấy đủ 4 model.")
 
     try:
         model = load_model(str(available[model_name]))
@@ -389,7 +392,10 @@ def render_demo() -> None:
             rtc_configuration=RTCConfiguration(
                 {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
             ),
-            media_stream_constraints={"video": True, "audio": False},
+            media_stream_constraints={
+                "video": {"width": {"ideal": 640}, "frameRate": {"ideal": 24, "max": 30}},
+                "audio": False,
+            },
             async_processing=True,
         )
 
@@ -411,8 +417,9 @@ def render_demo() -> None:
             if snapshot["error"]:
                 st.warning("Frame gần nhất gặp lỗi: " + snapshot["error"])
         if context.state.playing:
+            # Increase interval 500ms -> 800ms to reduce Streamlit rerun frequency
             st_autorefresh(
-                interval=500,
+                interval=800,
                 key=f"recognition-status-refresh-{model_name}",
             )
     else:

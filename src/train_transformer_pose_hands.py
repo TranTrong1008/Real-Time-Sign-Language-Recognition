@@ -13,7 +13,7 @@ tf.keras.utils.set_random_seed(SEED)
 
 # Setup directories
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR = os.path.join(BASE_DIR, "data", "holistic")
+DATA_DIR = os.path.join(BASE_DIR, "data", "pose_hands")
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 RESULTS_DIR = os.path.join(BASE_DIR, "results")
 
@@ -83,11 +83,11 @@ def main():
     model.summary()
 
     # Training callbacks
-    model_save_path = os.path.join(MODELS_DIR, "transformer_best.keras")
+    model_save_path = os.path.join(MODELS_DIR, "transformer_pose_hands_best.keras")
     my_callbacks = [
-        callbacks.ModelCheckpoint(model_save_path, save_best_only=True, monitor="val_accuracy", verbose=1),
+        callbacks.ModelCheckpoint(model_save_path, save_best_only=True, monitor="val_loss", mode="min", verbose=1),
         callbacks.EarlyStopping(monitor="val_loss", patience=12, restore_best_weights=True, verbose=1),
-        callbacks.ReduceLROnPlateau(monitor="val_loss", factor=0.5, patience=5, verbose=1)
+        callbacks.ReduceLROnPlateau(monitor="val_loss", factor=0.5, patience=5, min_lr=1e-6, verbose=1)
     ]
 
     # Train model
@@ -121,7 +121,7 @@ def main():
 
     # Export classification report
     report = classification_report(y_test_true, y_pred, digits=4, zero_division=0)
-    metrics_path = os.path.join(RESULTS_DIR, "transformer_metrics.txt")
+    metrics_path = os.path.join(RESULTS_DIR, "transformer_pose_hands_metrics.txt")
     with open(metrics_path, "w", encoding="utf-8") as f:
         f.write(f"Accuracy: {acc:.4f}\nMacro Precision: {macro_precision:.4f}\nMacro Recall: {macro_recall:.4f}\nMacro F1-score: {macro_f1:.4f}\n\n")
         f.write(report)
@@ -129,12 +129,12 @@ def main():
     # Plot and save confusion matrix
     cm = confusion_matrix(y_test_true, y_pred)
     plt.figure(figsize=(10, 8))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-    plt.title("Confusion Matrix - Transformer Model")
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+    plt.title("Confusion Matrix - Pose + Hands Transformer")
     plt.xlabel("Predicted")
     plt.ylabel("Actual")
     plt.tight_layout()
-    cm_path = os.path.join(RESULTS_DIR, "transformer_confusion_matrix.png")
+    cm_path = os.path.join(RESULTS_DIR, "transformer_pose_hands_confusion_matrix.png")
     plt.savefig(cm_path, dpi=300)
     plt.close()
 

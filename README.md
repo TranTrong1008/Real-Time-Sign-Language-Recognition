@@ -1,237 +1,317 @@
-# Real-Time Sign Language Recognition using MediaPipe Hands and BiLSTM for Hearing-Impaired Support  
+#  Real-Time Vietnamese Sign Language Recognition
 
-> **Python & Machine Learning Final Project – Summer 2026 HCMUT**
+> **Python & Machine Learning Final Project – Summer 2026 | HCMUT**  
+> **Team 17 – SAY2**
 
+---
 
+##  Overview
 
+A real-time Vietnamese Sign Language Recognition system using **MediaPipe Hands** for hand landmark extraction and deep learning models for temporal sequence classification.
 
-#  Project Overview
+The system captures webcam frames, extracts landmarks from the **left and right hands**, builds a 30-frame sliding window, and predicts one of **30 Vietnamese sign classes** with confidence-based temporal smoothing.
 
-This project develops a **real-time Vietnamese Sign Language Recognition System** using **MediaPipe Hands** and a **Bidirectional LSTM (BiLSTM)** model.
+### Main objectives
 
-The system captures hand movements through a webcam, extracts **21 hand landmarks** using MediaPipe Hands, converts them into sequential keypoints, and predicts Vietnamese sign language gestures using a trained BiLSTM model.
+- Real-time Vietnamese sign language recognition from webcam.
+- Extract hand landmarks using **MediaPipe Hands**.
+- Compare **LSTM, BiLSTM, 1D-CNN, Transformer and ST-GCN**.
+- Evaluate models using standard classification metrics.
+- Integrate the trained models into a **Streamlit Web App**.
 
-The final application provides real-time predictions with confidence scores and serves as an assistive communication tool for people with hearing impairments.
+---
 
-
-
-#  Objectives
-
-- Recognize Vietnamese Sign Language in real time.
-- Build an end-to-end Machine Learning pipeline.
-- Apply Computer Vision with MediaPipe Hands.
-- Learn temporal sequence modeling using BiLSTM.
-- Deploy an interactive demo using Streamlit.
-
-
-
-# 👥 Team Information
-
-**Team 17 – Team SAY2**
-
-| Member | Role |
-|----------|------|
-| Nguyễn Quốc Trọng | Project Lead |
-| Nguyễn Phương Thảo | Data Engineer |
-| Phan Võ Bảo Trâm | Backend Developer |
-| Phạm Ngọc Thịnh | Frontend / Demo |
-
-
-
-#  Project Structure
-đang update.....
-
-
-
-
-#  Dataset
-
-Vietnamese Sign Language Hand Gesture Dataset
-
-Source:
-
-> Kaggle
-
-Current size:
-
-- **54 classes**
-- **38 images per class**
-- Image format: JPG
-
-mở rộng tập dataset(ví dụ góc quay , độ sáng video ,....) : đang update..... 
-
-
-
-#  System Pipeline
+##  Pipeline
 
 ```text
-                Webcam
-                    │
-                    ▼
-                MediaPipe Hands
-                (21 Hand Landmarks)
-                    │
-                    ▼
-                Keypoint Sequence
-                    │
-                    ▼
-                BiLSTM Model
-                    │
-                    ▼
-                Prediction
-                (Label + Confidence)
-                    │
-                    ▼
-                Streamlit Interface
+Webcam
+   │
+   ▼
+MediaPipe Hands
+   │
+   ├── Left Hand
+   └── Right Hand
+   │
+   ▼
+126 features / frame
+   │
+   ▼
+30-frame Sliding Window
+   │
+   ▼
+Sequence Model
+   │
+   ├── LSTM
+   ├── BiLSTM
+   ├── 1D-CNN
+   ├── Transformer
+   └── ST-GCN
+   │
+   ▼
+Confidence Threshold
++ Temporal Smoothing
+   │
+   ▼
+Current Sign
+   │
+   ▼
+Accumulated Sentence
+   │
+   ▼
+Streamlit Web App
 ```
 
+---
 
+##  Dataset
 
-#  Input / Output
+**Source:** [`star092304/ViSignLanguage-Video`](https://huggingface.co/datasets/star092304/ViSignLanguage-Video)
 
-### Input
+| Item | Value |
+|---|---:|
+| Original videos | ~3,800 |
+| Original classes | 100 |
+| Selected classes | **30** |
+| Frames / video | **30** |
+| Random seed | **42** |
 
-- Webcam video stream
-- Continuous hand gesture sequence
+The project selects 30 sign classes with sufficient sample quantity and quality.
 
-### Output
+### Data preprocessing
 
-- Predicted Vietnamese Sign Language label
-- Confidence score
+Each video is:
 
-Example:
+1. Resampled to 30 frames.
+2. Processed using MediaPipe Hands.
+3. Converted into left/right hand landmark sequences.
+4. Missing hand landmarks are handled during preprocessing.
+5. Stored as numerical sequences for model training.
 
+The final evaluation uses a **signer-based split** to prevent the same signer from appearing in multiple dataset partitions.
 
+---
 
+##  Input Representation
 
+The system uses **MediaPipe Hands** with up to two hands per frame.
 
-#  Machine Learning Model
+Each detected hand contains 21 landmarks:
 
-## Feature Extraction
-
-- MediaPipe Hands
-- 21 landmarks per hand
-- x, y, z coordinates
-
-## Sequence Model
-
-Bidirectional Long Short-Term Memory (BiLSTM)
-
-Architecture
-
-```
-                    Input Sequence
-
-                         ↓
-
-                       BiLSTM
-
-                         ↓
-
-                       Dropout
-
-                         ↓
-
-                       Dense
-
-                         ↓
-
-                      Softmax
+```text
+21 landmarks × (x, y, z)
+= 63 features / hand
 ```
 
+For two hands:
 
+| Hand | Representation | Dimensions |
+|---|---|---:|
+| Left Hand | 21 × `(x, y, z)` | 63 |
+| Right Hand | 21 × `(x, y, z)` | 63 |
+| **Total** | | **126** |
 
-#  Technology Stack
+Therefore, each frame is represented by:
 
-| Component | Technology |
-|------------|------------|
-| Programming Language | Python |
-| Computer Vision | OpenCV |
-| Landmark Detection | MediaPipe Hands |
-| Deep Learning | TensorFlow / Keras |
-| API | FastAPI |
-| Frontend | Streamlit |
-| Deployment | Docker |
-| CI/CD | GitHub Actions |
+```text
+126 features
+```
 
+A sequence contains 30 consecutive frames:
 
+```text
+(30, 126)
+```
 
-#  Evaluation Metrics
+The model input during inference is:
 
-Model performance will be evaluated using:
+```text
+(batch_size, 30, 126)
+```
+
+The model output is:
+
+```text
+(batch_size, 30)
+```
+
+where 30 represents the number of Vietnamese sign classes.
+
+---
+
+##  Models
+
+The project compares five temporal models:
+
+| Model | Architecture |
+|---|---|
+| LSTM | Long Short-Term Memory |
+| BiLSTM | Bidirectional LSTM |
+| 1D-CNN | Temporal 1D Convolution |
+| Transformer | Transformer Encoder |
+| ST-GCN | Spatial-Temporal Graph Convolution |
+
+All models use the same:
+
+```text
+Input:  (30, 126)
+Output: (30,)
+```
+
+and are evaluated using the same data split and test protocol.
+
+---
+
+##  Evaluation
+
+The models are evaluated using:
 
 - Accuracy
-- Precision
-- Recall
-- F1-score
+- Macro Precision
+- Macro Recall
+- Macro F1-score
 - Confusion Matrix
-- Inference Latency (ms/frame)
 
 
+---
 
-#  API
-đang update ......
+##  Web Application
 
-#  Demo
+The Streamlit application provides:
 
-The Streamlit application allows users to:
+- Real-time webcam input via WebRTC.
+- MediaPipe Hands detection.
+- Left/right hand landmark visualization.
+- Model selection.
+- Real-time sign prediction.
+- Confidence score.
+- Temporal smoothing.
+- Duplicate prediction filtering.
+- Sentence accumulation.
+- Sliding-window reset.
+- Sentence reset.
 
-- Capture webcam video
-- Detect hand landmarks in real time
-- Display predicted sign language
-- Show confidence score
-- Visualize MediaPipe hand skeleton
+---
 
+##  Project Structure
 
+```text
+Real-Time-Sign-Language-Recognition/
+│
+├── configs/
+│   └── labels.json
+│
+├── data/
+│   └── hands/
+│
+├── models/
+│
+├── notebooks/
+│   ├── EDA.ipynb
+│   ├── preprocessing.ipynb
+│   └── training.ipynb
+│
+├── results/
+│   ├── metrics/
+│   └── confusion_matrices/
+│
+├── src/
+│   ├── app.py
+│   ├── logic_processor.py
+│   ├── data_preprocessing.py
+│   ├── train_lstm.py
+│   ├── train_bilstm.py
+│   ├── train_cnn1d.py
+│   ├── train_transformer.py
+│   ├── train_stgcn.py
+│   └── models/
+│
+├── requirements.txt
+└── README.md
+```
 
-#  Installation
+---
 
-Clone project
+##  Installation
+
+### 1. Clone repository
 
 ```bash
 git clone https://github.com/TranTrong1008/Real-Time-Sign-Language-Recognition.git
+
+cd Real-Time-Sign-Language-Recognition
 ```
 
-Install dependencies
+### 2. Create environment
+
+Python **3.11** is recommended.
 
 ```bash
+conda create -n sign_lang_env python=3.11 -y
+
+conda activate sign_lang_env
+```
+
+### 3. Install dependencies
+
+```bash
+python -m pip install --upgrade pip
+
 pip install -r requirements.txt
 ```
 
-update thêm ....
+---
 
+##  Model Setup
 
-
-#  Requirements
+Download the trained models from the project storage and place them inside:
 
 ```text
-Python >= 3.11
-
-tensorflow
-opencv-python
-mediapipe
-numpy
-pandas
-scikit-learn
-fastapi
-streamlit
-matplotlib
-
+models/
+├── lstm_model.h5
+├── bilstm_model.h5
+├── cnn1d_model.h5
+├── transformer_best.keras
+└── stgcn_best.keras
 ```
 
+The model class order must match:
+
+```text
+configs/labels.json
+```
+
+---
+
+##  Run the Web App
+
+```bash
+streamlit run src/app.py
+```
+
+Then open:
+
+```text
+http://localhost:8501
+```
+
+Select a model and start the webcam.
+
+---
+
+## 👥 Team
+
+| Member | Role |
+|---|---|
+| **M1 – Nguyễn Quốc Trọng** | LSTM, BiLSTM, 1D-CNN & Model Evaluation |
+| **M2 – Nguyễn Phương Thảo** | Data Engineering & Preprocessing |
+| **M3 – Phan Võ Bảo Trâm** | Transformer, ST-GCN & Temporal Logic |
+| **M4 – Phạm Ngọc Thịnh** | Streamlit, WebRTC & Model Integration |
+
+---
 
 
+##  License
 
-#  References
+This project is developed for educational purposes as part of the **Python & Machine Learning – Summer 2026 HCMUT** final project.
 
-- MediaPipe Hands
-- TensorFlow / Keras Documentation
-- OpenCV Documentation
-- Kaggle Dataset
-- Scikit-learn Documentation
-
-
-
-#  License
-
-Dự án này được phát triển cho mục đích giáo dục là một phần của project cuối khóa **Python & Machine Learning – Summer 2026** .
+Dataset and external resources remain subject to their respective licenses.

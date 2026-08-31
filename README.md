@@ -7,15 +7,15 @@
 
 ##  Overview
 
-A real-time Vietnamese Sign Language Recognition system using **MediaPipe Hands** for hand landmark extraction and deep learning models for temporal sequence classification.
+A real-time Vietnamese Sign Language Recognition system using **MediaPipe Holistic** for landmark extraction and deep learning models for temporal sequence classification.
 
 The system captures webcam frames, extracts landmarks from the **left and right hands**, builds a 30-frame sliding window, and predicts one of **30 Vietnamese sign classes** with confidence-based temporal smoothing.
 
 ### Main objectives
 
 - Real-time Vietnamese sign language recognition from webcam.
-- Extract hand landmarks using **MediaPipe Hands**.
-- Compare **LSTM, BiLSTM, 1D-CNN, Transformer and ST-GCN**.
+- Extract hand landmarks using **MediaPipe Holistic**.
+- Compare **LSTM, BiLSTM, 1D-CNN, Transformer**.
 - Evaluate models using standard classification metrics.
 - Integrate the trained models into a **Streamlit Web App**.
 
@@ -27,7 +27,7 @@ The system captures webcam frames, extracts landmarks from the **left and right 
 Webcam
    │
    ▼
-MediaPipe Hands
+MediaPipe Holistic
    │
    ├── Left Hand
    └── Right Hand
@@ -44,8 +44,7 @@ Sequence Model
    ├── LSTM
    ├── BiLSTM
    ├── 1D-CNN
-   ├── Transformer
-   └── ST-GCN
+   └── Transformer
    │
    ▼
 Confidence Threshold
@@ -82,18 +81,16 @@ The project selects 30 sign classes with sufficient sample quantity and quality.
 Each video is:
 
 1. Resampled to 30 frames.
-2. Processed using MediaPipe Hands.
+2. Processed using MediaPipe Holistic.
 3. Converted into left/right hand landmark sequences.
 4. Missing hand landmarks are handled during preprocessing.
 5. Stored as numerical sequences for model training.
-
-The final evaluation uses a **signer-based split** to prevent the same signer from appearing in multiple dataset partitions.
 
 ---
 
 ##  Input Representation
 
-The system uses **MediaPipe Hands** with up to two hands per frame.
+The system uses **MediaPipe Holistic** with up to two hands per frame.
 
 Each detected hand contains 21 landmarks:
 
@@ -140,7 +137,7 @@ where 30 represents the number of Vietnamese sign classes.
 
 ##  Models
 
-The project compares five temporal models:
+The project compares four temporal models:
 
 | Model | Architecture |
 |---|---|
@@ -148,7 +145,6 @@ The project compares five temporal models:
 | BiLSTM | Bidirectional LSTM |
 | 1D-CNN | Temporal 1D Convolution |
 | Transformer | Transformer Encoder |
-| ST-GCN | Spatial-Temporal Graph Convolution |
 
 All models use the same:
 
@@ -179,7 +175,7 @@ The models are evaluated using:
 The Streamlit application provides:
 
 - Real-time webcam input via WebRTC.
-- MediaPipe Hands detection.
+- MediaPipe Holistic detection.
 - Left/right hand landmark visualization.
 - Model selection.
 - Real-time sign prediction.
@@ -201,7 +197,6 @@ Real-Time-Sign-Language-Recognition/
 │   └── labels.json
 │
 ├── data/
-│   └── hands/
 │
 ├── models/
 │
@@ -222,7 +217,6 @@ Real-Time-Sign-Language-Recognition/
 │   ├── train_bilstm.py
 │   ├── train_cnn1d.py
 │   ├── train_transformer.py
-│   ├── train_stgcn.py
 │   └── models/
 │
 ├── requirements.txt
@@ -267,11 +261,10 @@ Download the trained models from the project storage and place them inside:
 
 ```text
 models/
-├── lstm_model.h5
-├── bilstm_model.h5
-├── cnn1d_model.h5
-├── transformer_best.keras
-└── stgcn_best.keras
+├── lstm_model_hand.h5
+├── bilstm_model_hand.h5
+├── cnn1d_model_hand.h5
+└── transformer_hands_best.keras
 ```
 
 The model class order must match:
@@ -304,7 +297,7 @@ Select a model and start the webcam.
 |---|---|
 | **M1 – Nguyễn Quốc Trọng** | LSTM, BiLSTM, 1D-CNN & Model Evaluation |
 | **M2 – Nguyễn Phương Thảo** | Data Engineering & Preprocessing |
-| **M3 – Phan Võ Bảo Trâm** | Transformer, ST-GCN & Temporal Logic |
+| **M3 – Phan Võ Bảo Trâm** | Transformer & Temporal Logic |
 | **M4 – Phạm Ngọc Thịnh** | Streamlit, WebRTC & Model Integration |
 
 ---

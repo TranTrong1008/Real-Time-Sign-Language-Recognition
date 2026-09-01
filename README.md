@@ -206,6 +206,7 @@ Real-Time-Sign-Language-Recognition/
 │   └── training.ipynb
 │
 ├── results/
+│   ├── eda_ouput/
 │   ├── metrics/
 │   └── confusion_matrices/
 │

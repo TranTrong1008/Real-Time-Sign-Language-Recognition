@@ -1,0 +1,1052 @@
+[
+  {
+    "path": "realtime_test_set\\Biết\\sample_000.npz",
+    "true_label": "Biết",
+    "pred_idx": 0,
+    "confidence": 0.9999665021896362,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Biết\\sample_001.npz",
+    "true_label": "Biết",
+    "pred_idx": 0,
+    "confidence": 0.999977707862854,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Biết\\sample_002.npz",
+    "true_label": "Biết",
+    "pred_idx": 0,
+    "confidence": 0.9999575614929199,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Biết\\sample_003.npz",
+    "true_label": "Biết",
+    "pred_idx": 0,
+    "confidence": 0.9999614953994751,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Biết\\sample_004.npz",
+    "true_label": "Biết",
+    "pred_idx": 0,
+    "confidence": 0.9998811483383179,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Băn khoăn\\sample_000.npz",
+    "true_label": "Băn khoăn",
+    "pred_idx": 1,
+    "confidence": 0.5024315118789673,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Băn khoăn\\sample_001.npz",
+    "true_label": "Băn khoăn",
+    "pred_idx": 1,
+    "confidence": 0.9609526991844177,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Băn khoăn\\sample_002.npz",
+    "true_label": "Băn khoăn",
+    "pred_idx": 0,
+    "confidence": 0.8266120553016663,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Băn khoăn\\sample_003.npz",
+    "true_label": "Băn khoăn",
+    "pred_idx": 1,
+    "confidence": 0.9907151460647583,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Băn khoăn\\sample_004.npz",
+    "true_label": "Băn khoăn",
+    "pred_idx": 0,
+    "confidence": 0.6436351537704468,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Chiều\\sample_000.npz",
+    "true_label": "Chiều",
+    "pred_idx": 2,
+    "confidence": 0.8391571640968323,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chiều\\sample_001.npz",
+    "true_label": "Chiều",
+    "pred_idx": 2,
+    "confidence": 0.8954880833625793,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chiều\\sample_002.npz",
+    "true_label": "Chiều",
+    "pred_idx": 2,
+    "confidence": 0.5336962938308716,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chiều\\sample_003.npz",
+    "true_label": "Chiều",
+    "pred_idx": 7,
+    "confidence": 0.8127641677856445,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Chiều\\sample_004.npz",
+    "true_label": "Chiều",
+    "pred_idx": 7,
+    "confidence": 0.598538339138031,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Chân\\sample_000.npz",
+    "true_label": "Chân",
+    "pred_idx": 3,
+    "confidence": 0.5674521923065186,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chân\\sample_001.npz",
+    "true_label": "Chân",
+    "pred_idx": 13,
+    "confidence": 0.4810492992401123,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Chân\\sample_002.npz",
+    "true_label": "Chân",
+    "pred_idx": 3,
+    "confidence": 0.9436354637145996,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chân\\sample_003.npz",
+    "true_label": "Chân",
+    "pred_idx": 3,
+    "confidence": 0.9723366498947144,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chân\\sample_004.npz",
+    "true_label": "Chân",
+    "pred_idx": 3,
+    "confidence": 0.9191204905509949,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chạy\\sample_000.npz",
+    "true_label": "Chạy",
+    "pred_idx": 4,
+    "confidence": 0.8085634708404541,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chạy\\sample_001.npz",
+    "true_label": "Chạy",
+    "pred_idx": 4,
+    "confidence": 0.9750738143920898,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chạy\\sample_002.npz",
+    "true_label": "Chạy",
+    "pred_idx": 0,
+    "confidence": 0.506324827671051,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Chạy\\sample_003.npz",
+    "true_label": "Chạy",
+    "pred_idx": 4,
+    "confidence": 0.7778451442718506,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chạy\\sample_004.npz",
+    "true_label": "Chạy",
+    "pred_idx": 4,
+    "confidence": 0.597172200679779,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chậm lại\\sample_000.npz",
+    "true_label": "Chậm lại",
+    "pred_idx": 7,
+    "confidence": 0.8111943006515503,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Chậm lại\\sample_001.npz",
+    "true_label": "Chậm lại",
+    "pred_idx": 5,
+    "confidence": 0.9973147511482239,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chậm lại\\sample_002.npz",
+    "true_label": "Chậm lại",
+    "pred_idx": 13,
+    "confidence": 0.551777184009552,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Chậm lại\\sample_003.npz",
+    "true_label": "Chậm lại",
+    "pred_idx": 5,
+    "confidence": 0.7369704842567444,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Chậm lại\\sample_004.npz",
+    "true_label": "Chậm lại",
+    "pred_idx": 5,
+    "confidence": 0.966794490814209,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Cá\\sample_000.npz",
+    "true_label": "Cá",
+    "pred_idx": 6,
+    "confidence": 0.993248462677002,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Cá\\sample_001.npz",
+    "true_label": "Cá",
+    "pred_idx": 6,
+    "confidence": 0.9884212017059326,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Cá\\sample_002.npz",
+    "true_label": "Cá",
+    "pred_idx": 6,
+    "confidence": 0.9781051278114319,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Cá\\sample_003.npz",
+    "true_label": "Cá",
+    "pred_idx": 8,
+    "confidence": 0.45583081245422363,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Cá\\sample_004.npz",
+    "true_label": "Cá",
+    "pred_idx": 8,
+    "confidence": 0.6803733110427856,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Cám dỗ\\sample_000.npz",
+    "true_label": "Cám dỗ",
+    "pred_idx": 7,
+    "confidence": 0.9996857643127441,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Cám dỗ\\sample_001.npz",
+    "true_label": "Cám dỗ",
+    "pred_idx": 7,
+    "confidence": 0.9995591044425964,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Cám dỗ\\sample_002.npz",
+    "true_label": "Cám dỗ",
+    "pred_idx": 7,
+    "confidence": 0.9958945512771606,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Cám dỗ\\sample_003.npz",
+    "true_label": "Cám dỗ",
+    "pred_idx": 7,
+    "confidence": 0.9988372921943665,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Cám dỗ\\sample_004.npz",
+    "true_label": "Cám dỗ",
+    "pred_idx": 7,
+    "confidence": 0.9889014959335327,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Cảm ơn\\sample_000.npz",
+    "true_label": "Cảm ơn",
+    "pred_idx": 8,
+    "confidence": 0.6181890368461609,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Cảm ơn\\sample_001.npz",
+    "true_label": "Cảm ơn",
+    "pred_idx": 8,
+    "confidence": 0.8670402765274048,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Cảm ơn\\sample_002.npz",
+    "true_label": "Cảm ơn",
+    "pred_idx": 13,
+    "confidence": 0.6775588393211365,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Cảm ơn\\sample_003.npz",
+    "true_label": "Cảm ơn",
+    "pred_idx": 8,
+    "confidence": 0.8906183838844299,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Cảm ơn\\sample_004.npz",
+    "true_label": "Cảm ơn",
+    "pred_idx": 13,
+    "confidence": 0.6963439583778381,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Dạy dỗ\\sample_000.npz",
+    "true_label": "Dạy dỗ",
+    "pred_idx": 1,
+    "confidence": 0.9824826717376709,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Dạy dỗ\\sample_001.npz",
+    "true_label": "Dạy dỗ",
+    "pred_idx": 1,
+    "confidence": 0.9817111492156982,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Dạy dỗ\\sample_002.npz",
+    "true_label": "Dạy dỗ",
+    "pred_idx": 1,
+    "confidence": 0.9723060131072998,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Dạy dỗ\\sample_003.npz",
+    "true_label": "Dạy dỗ",
+    "pred_idx": 1,
+    "confidence": 0.9880421161651611,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Dạy dỗ\\sample_004.npz",
+    "true_label": "Dạy dỗ",
+    "pred_idx": 1,
+    "confidence": 0.9503561854362488,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Giúp\\sample_000.npz",
+    "true_label": "Giúp",
+    "pred_idx": 10,
+    "confidence": 0.9998668432235718,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Giúp\\sample_001.npz",
+    "true_label": "Giúp",
+    "pred_idx": 10,
+    "confidence": 0.9999065399169922,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Giúp\\sample_002.npz",
+    "true_label": "Giúp",
+    "pred_idx": 10,
+    "confidence": 0.9990342855453491,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Giúp\\sample_003.npz",
+    "true_label": "Giúp",
+    "pred_idx": 10,
+    "confidence": 0.9998492002487183,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Giúp\\sample_004.npz",
+    "true_label": "Giúp",
+    "pred_idx": 10,
+    "confidence": 0.9999583959579468,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Khóc\\sample_000.npz",
+    "true_label": "Khóc",
+    "pred_idx": 13,
+    "confidence": 0.5976182818412781,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Khóc\\sample_001.npz",
+    "true_label": "Khóc",
+    "pred_idx": 28,
+    "confidence": 0.4604828655719757,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Khóc\\sample_002.npz",
+    "true_label": "Khóc",
+    "pred_idx": 13,
+    "confidence": 0.6228336095809937,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Khóc\\sample_003.npz",
+    "true_label": "Khóc",
+    "pred_idx": 15,
+    "confidence": 0.7838911414146423,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Khóc\\sample_004.npz",
+    "true_label": "Khóc",
+    "pred_idx": 0,
+    "confidence": 0.9508862495422363,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Nghe\\sample_000.npz",
+    "true_label": "Nghe",
+    "pred_idx": 12,
+    "confidence": 0.677129328250885,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nghe\\sample_001.npz",
+    "true_label": "Nghe",
+    "pred_idx": 12,
+    "confidence": 0.5055348873138428,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nghe\\sample_002.npz",
+    "true_label": "Nghe",
+    "pred_idx": 12,
+    "confidence": 0.7654711604118347,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nghe\\sample_003.npz",
+    "true_label": "Nghe",
+    "pred_idx": 12,
+    "confidence": 0.805898904800415,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nghe\\sample_004.npz",
+    "true_label": "Nghe",
+    "pred_idx": 12,
+    "confidence": 0.6463514566421509,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nghỉ ngơi\\sample_000.npz",
+    "true_label": "Nghỉ ngơi",
+    "pred_idx": 13,
+    "confidence": 0.9996387958526611,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nghỉ ngơi\\sample_001.npz",
+    "true_label": "Nghỉ ngơi",
+    "pred_idx": 13,
+    "confidence": 0.9997757077217102,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nghỉ ngơi\\sample_002.npz",
+    "true_label": "Nghỉ ngơi",
+    "pred_idx": 13,
+    "confidence": 0.9995442032814026,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nghỉ ngơi\\sample_003.npz",
+    "true_label": "Nghỉ ngơi",
+    "pred_idx": 13,
+    "confidence": 0.9998481273651123,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nghỉ ngơi\\sample_004.npz",
+    "true_label": "Nghỉ ngơi",
+    "pred_idx": 13,
+    "confidence": 0.9998620748519897,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nhà\\sample_000.npz",
+    "true_label": "Nhà",
+    "pred_idx": 7,
+    "confidence": 0.9970079064369202,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Nhà\\sample_001.npz",
+    "true_label": "Nhà",
+    "pred_idx": 23,
+    "confidence": 0.4563349783420563,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Nhà\\sample_002.npz",
+    "true_label": "Nhà",
+    "pred_idx": 23,
+    "confidence": 0.634455680847168,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Nhà\\sample_003.npz",
+    "true_label": "Nhà",
+    "pred_idx": 7,
+    "confidence": 0.8925096392631531,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Nhà\\sample_004.npz",
+    "true_label": "Nhà",
+    "pred_idx": 7,
+    "confidence": 0.9728613495826721,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Nói xấu\\sample_000.npz",
+    "true_label": "Nói xấu",
+    "pred_idx": 15,
+    "confidence": 0.9939121007919312,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nói xấu\\sample_001.npz",
+    "true_label": "Nói xấu",
+    "pred_idx": 15,
+    "confidence": 0.9968382120132446,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nói xấu\\sample_002.npz",
+    "true_label": "Nói xấu",
+    "pred_idx": 15,
+    "confidence": 0.9997755885124207,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nói xấu\\sample_003.npz",
+    "true_label": "Nói xấu",
+    "pred_idx": 15,
+    "confidence": 0.9966827034950256,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nói xấu\\sample_004.npz",
+    "true_label": "Nói xấu",
+    "pred_idx": 15,
+    "confidence": 0.9531868100166321,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nôn ói\\sample_000.npz",
+    "true_label": "Nôn ói",
+    "pred_idx": 16,
+    "confidence": 0.9620862603187561,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nôn ói\\sample_001.npz",
+    "true_label": "Nôn ói",
+    "pred_idx": 16,
+    "confidence": 0.9926263689994812,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nôn ói\\sample_002.npz",
+    "true_label": "Nôn ói",
+    "pred_idx": 16,
+    "confidence": 0.9997507929801941,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nôn ói\\sample_003.npz",
+    "true_label": "Nôn ói",
+    "pred_idx": 16,
+    "confidence": 0.9984230995178223,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Nôn ói\\sample_004.npz",
+    "true_label": "Nôn ói",
+    "pred_idx": 16,
+    "confidence": 0.8410460352897644,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Phía sau\\sample_000.npz",
+    "true_label": "Phía sau",
+    "pred_idx": 17,
+    "confidence": 0.9985760450363159,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Phía sau\\sample_001.npz",
+    "true_label": "Phía sau",
+    "pred_idx": 17,
+    "confidence": 0.9856921434402466,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Phía sau\\sample_002.npz",
+    "true_label": "Phía sau",
+    "pred_idx": 17,
+    "confidence": 0.9878485202789307,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Phía sau\\sample_003.npz",
+    "true_label": "Phía sau",
+    "pred_idx": 17,
+    "confidence": 0.994579553604126,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Phía sau\\sample_004.npz",
+    "true_label": "Phía sau",
+    "pred_idx": 17,
+    "confidence": 0.9956706762313843,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Phỏng vấn\\sample_000.npz",
+    "true_label": "Phỏng vấn",
+    "pred_idx": 28,
+    "confidence": 0.48153001070022583,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Phỏng vấn\\sample_001.npz",
+    "true_label": "Phỏng vấn",
+    "pred_idx": 15,
+    "confidence": 0.5906855463981628,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Phỏng vấn\\sample_002.npz",
+    "true_label": "Phỏng vấn",
+    "pred_idx": 18,
+    "confidence": 0.7889103293418884,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Phỏng vấn\\sample_003.npz",
+    "true_label": "Phỏng vấn",
+    "pred_idx": 13,
+    "confidence": 0.5020213723182678,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Phỏng vấn\\sample_004.npz",
+    "true_label": "Phỏng vấn",
+    "pred_idx": 18,
+    "confidence": 0.605218768119812,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Rau\\sample_000.npz",
+    "true_label": "Rau",
+    "pred_idx": 19,
+    "confidence": 0.964668333530426,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Rau\\sample_001.npz",
+    "true_label": "Rau",
+    "pred_idx": 19,
+    "confidence": 0.9494279623031616,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Rau\\sample_002.npz",
+    "true_label": "Rau",
+    "pred_idx": 19,
+    "confidence": 0.574758768081665,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Rau\\sample_003.npz",
+    "true_label": "Rau",
+    "pred_idx": 19,
+    "confidence": 0.6089390516281128,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Rau\\sample_004.npz",
+    "true_label": "Rau",
+    "pred_idx": 19,
+    "confidence": 0.5802111625671387,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Rẽ trái\\sample_000.npz",
+    "true_label": "Rẽ trái",
+    "pred_idx": 20,
+    "confidence": 0.8996191620826721,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Rẽ trái\\sample_001.npz",
+    "true_label": "Rẽ trái",
+    "pred_idx": 20,
+    "confidence": 0.9308428764343262,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Rẽ trái\\sample_002.npz",
+    "true_label": "Rẽ trái",
+    "pred_idx": 13,
+    "confidence": 0.5585029125213623,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Rẽ trái\\sample_003.npz",
+    "true_label": "Rẽ trái",
+    "pred_idx": 13,
+    "confidence": 0.5604830980300903,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Rẽ trái\\sample_004.npz",
+    "true_label": "Rẽ trái",
+    "pred_idx": 13,
+    "confidence": 0.6746272444725037,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Sử dụng\\sample_000.npz",
+    "true_label": "Sử dụng",
+    "pred_idx": 8,
+    "confidence": 0.9919427633285522,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Sử dụng\\sample_001.npz",
+    "true_label": "Sử dụng",
+    "pred_idx": 8,
+    "confidence": 0.9714276194572449,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Sử dụng\\sample_002.npz",
+    "true_label": "Sử dụng",
+    "pred_idx": 8,
+    "confidence": 0.9999819993972778,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Sử dụng\\sample_003.npz",
+    "true_label": "Sử dụng",
+    "pred_idx": 8,
+    "confidence": 0.7025529742240906,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Sử dụng\\sample_004.npz",
+    "true_label": "Sử dụng",
+    "pred_idx": 16,
+    "confidence": 0.9651573300361633,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Thức dậy\\sample_000.npz",
+    "true_label": "Thức dậy",
+    "pred_idx": 13,
+    "confidence": 0.998867392539978,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Thức dậy\\sample_001.npz",
+    "true_label": "Thức dậy",
+    "pred_idx": 13,
+    "confidence": 0.9920952916145325,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Thức dậy\\sample_002.npz",
+    "true_label": "Thức dậy",
+    "pred_idx": 13,
+    "confidence": 0.6619820594787598,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Thức dậy\\sample_003.npz",
+    "true_label": "Thức dậy",
+    "pred_idx": 13,
+    "confidence": 0.9955125451087952,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Thức dậy\\sample_004.npz",
+    "true_label": "Thức dậy",
+    "pred_idx": 13,
+    "confidence": 0.993043839931488,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Trường học\\sample_000.npz",
+    "true_label": "Trường học",
+    "pred_idx": 23,
+    "confidence": 0.9576858878135681,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Trường học\\sample_001.npz",
+    "true_label": "Trường học",
+    "pred_idx": 23,
+    "confidence": 0.8697816133499146,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Trường học\\sample_002.npz",
+    "true_label": "Trường học",
+    "pred_idx": 23,
+    "confidence": 0.9578197002410889,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Trường học\\sample_003.npz",
+    "true_label": "Trường học",
+    "pred_idx": 23,
+    "confidence": 0.9563988447189331,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Trường học\\sample_004.npz",
+    "true_label": "Trường học",
+    "pred_idx": 23,
+    "confidence": 0.9957128763198853,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Xa\\sample_000.npz",
+    "true_label": "Xa",
+    "pred_idx": 6,
+    "confidence": 0.6302545666694641,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Xa\\sample_001.npz",
+    "true_label": "Xa",
+    "pred_idx": 6,
+    "confidence": 0.5925033688545227,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Xa\\sample_002.npz",
+    "true_label": "Xa",
+    "pred_idx": 6,
+    "confidence": 0.8762252330780029,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Xa\\sample_003.npz",
+    "true_label": "Xa",
+    "pred_idx": 6,
+    "confidence": 0.8983249664306641,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Xa\\sample_004.npz",
+    "true_label": "Xa",
+    "pred_idx": 6,
+    "confidence": 0.8784308433532715,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Xúc động\\sample_000.npz",
+    "true_label": "Xúc động",
+    "pred_idx": 28,
+    "confidence": 0.5987433195114136,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Xúc động\\sample_001.npz",
+    "true_label": "Xúc động",
+    "pred_idx": 25,
+    "confidence": 0.6565321087837219,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Xúc động\\sample_002.npz",
+    "true_label": "Xúc động",
+    "pred_idx": 25,
+    "confidence": 0.5034085512161255,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Xúc động\\sample_003.npz",
+    "true_label": "Xúc động",
+    "pred_idx": 25,
+    "confidence": 0.5418006181716919,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Xúc động\\sample_004.npz",
+    "true_label": "Xúc động",
+    "pred_idx": 28,
+    "confidence": 0.4401772618293762,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Áp dụng\\sample_000.npz",
+    "true_label": "Áp dụng",
+    "pred_idx": 0,
+    "confidence": 0.998490571975708,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Áp dụng\\sample_001.npz",
+    "true_label": "Áp dụng",
+    "pred_idx": 0,
+    "confidence": 0.9988008737564087,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Áp dụng\\sample_002.npz",
+    "true_label": "Áp dụng",
+    "pred_idx": 0,
+    "confidence": 0.9989987015724182,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Áp dụng\\sample_003.npz",
+    "true_label": "Áp dụng",
+    "pred_idx": 0,
+    "confidence": 0.9998472929000854,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Áp dụng\\sample_004.npz",
+    "true_label": "Áp dụng",
+    "pred_idx": 0,
+    "confidence": 0.9998860359191895,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Ăn\\sample_000.npz",
+    "true_label": "Ăn",
+    "pred_idx": 27,
+    "confidence": 0.6068620681762695,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Ăn\\sample_001.npz",
+    "true_label": "Ăn",
+    "pred_idx": 13,
+    "confidence": 0.9664802551269531,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Ăn\\sample_002.npz",
+    "true_label": "Ăn",
+    "pred_idx": 13,
+    "confidence": 0.9740536212921143,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Ăn\\sample_003.npz",
+    "true_label": "Ăn",
+    "pred_idx": 13,
+    "confidence": 0.8034150004386902,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Ăn\\sample_004.npz",
+    "true_label": "Ăn",
+    "pred_idx": 13,
+    "confidence": 0.9797331094741821,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Ăn mừng\\sample_000.npz",
+    "true_label": "Ăn mừng",
+    "pred_idx": 28,
+    "confidence": 0.9805644154548645,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Ăn mừng\\sample_001.npz",
+    "true_label": "Ăn mừng",
+    "pred_idx": 28,
+    "confidence": 0.9133549332618713,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Ăn mừng\\sample_002.npz",
+    "true_label": "Ăn mừng",
+    "pred_idx": 28,
+    "confidence": 0.873498797416687,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Ăn mừng\\sample_003.npz",
+    "true_label": "Ăn mừng",
+    "pred_idx": 28,
+    "confidence": 0.9262625575065613,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Ăn mừng\\sample_004.npz",
+    "true_label": "Ăn mừng",
+    "pred_idx": 28,
+    "confidence": 0.990993320941925,
+    "correct": true
+  },
+  {
+    "path": "realtime_test_set\\Đi\\sample_000.npz",
+    "true_label": "Đi",
+    "pred_idx": 17,
+    "confidence": 0.9846129417419434,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Đi\\sample_001.npz",
+    "true_label": "Đi",
+    "pred_idx": 17,
+    "confidence": 0.9879393577575684,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Đi\\sample_002.npz",
+    "true_label": "Đi",
+    "pred_idx": 17,
+    "confidence": 0.7773152589797974,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Đi\\sample_003.npz",
+    "true_label": "Đi",
+    "pred_idx": 17,
+    "confidence": 0.9921900629997253,
+    "correct": false
+  },
+  {
+    "path": "realtime_test_set\\Đi\\sample_004.npz",
+    "true_label": "Đi",
+    "pred_idx": 17,
+    "confidence": 0.8889752626419067,
+    "correct": false
+  }
+]

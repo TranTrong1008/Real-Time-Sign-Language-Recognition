@@ -143,35 +143,35 @@
     "path": "realtime_test_set\\Chạy\\sample_000.npz",
     "true_label": "Chạy",
     "pred_idx": 4,
-    "confidence": 0.8085634708404541,
+    "confidence": 0.9995241165161133,
     "correct": true
   },
   {
     "path": "realtime_test_set\\Chạy\\sample_001.npz",
     "true_label": "Chạy",
     "pred_idx": 4,
-    "confidence": 0.9750738143920898,
+    "confidence": 0.9648876786231995,
     "correct": true
   },
   {
     "path": "realtime_test_set\\Chạy\\sample_002.npz",
     "true_label": "Chạy",
-    "pred_idx": 0,
-    "confidence": 0.506324827671051,
-    "correct": false
+    "pred_idx": 4,
+    "confidence": 0.9926859140396118,
+    "correct": true
   },
   {
     "path": "realtime_test_set\\Chạy\\sample_003.npz",
     "true_label": "Chạy",
     "pred_idx": 4,
-    "confidence": 0.7778451442718506,
+    "confidence": 0.9986623525619507,
     "correct": true
   },
   {
     "path": "realtime_test_set\\Chạy\\sample_004.npz",
     "true_label": "Chạy",
     "pred_idx": 4,
-    "confidence": 0.597172200679779,
+    "confidence": 0.999893069267273,
     "correct": true
   },
   {
@@ -912,36 +912,36 @@
   {
     "path": "realtime_test_set\\Áp dụng\\sample_000.npz",
     "true_label": "Áp dụng",
-    "pred_idx": 0,
-    "confidence": 0.998490571975708,
+    "pred_idx": 13,
+    "confidence": 0.736328661441803,
     "correct": false
   },
   {
     "path": "realtime_test_set\\Áp dụng\\sample_001.npz",
     "true_label": "Áp dụng",
-    "pred_idx": 0,
-    "confidence": 0.9988008737564087,
+    "pred_idx": 18,
+    "confidence": 0.8250930309295654,
     "correct": false
   },
   {
     "path": "realtime_test_set\\Áp dụng\\sample_002.npz",
     "true_label": "Áp dụng",
-    "pred_idx": 0,
-    "confidence": 0.9989987015724182,
+    "pred_idx": 18,
+    "confidence": 0.7283722162246704,
     "correct": false
   },
   {
     "path": "realtime_test_set\\Áp dụng\\sample_003.npz",
     "true_label": "Áp dụng",
-    "pred_idx": 0,
-    "confidence": 0.9998472929000854,
-    "correct": false
+    "pred_idx": 26,
+    "confidence": 0.6814903616905212,
+    "correct": true
   },
   {
     "path": "realtime_test_set\\Áp dụng\\sample_004.npz",
     "true_label": "Áp dụng",
-    "pred_idx": 0,
-    "confidence": 0.9998860359191895,
+    "pred_idx": 18,
+    "confidence": 0.9795724749565125,
     "correct": false
   },
   {

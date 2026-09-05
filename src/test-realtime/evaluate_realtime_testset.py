@@ -7,7 +7,7 @@ suy ra cả 3 bộ feature (126/258/534) để đánh giá công bằng trên c�
 thực hiện ký hiệu thật, không phải 3 lần quay riêng biệt.
 
 Cách chạy:
-    python evaluate_realtime_testset.py --test_set_dir realtime_test_set --labels_file ../../configs/labels.json --model_hands ../../models/transformer_hands_best.keras --model_pose_hands ../../models/transformer_pose_hands_best.keras --model_holistic ../../models/transformer_best.keras --output_dir realtime_eval_output
+    python evaluate_realtime_testset.py --test_set_dir ../../data/realtime_test_set --labels_file ../../configs/labels.json --model_hands ../../models/transformer_hands_best.keras --model_pose_hands ../../models/transformer_pose_hands_best.keras --model_holistic ../../models/transformer_best.keras --output_dir realtime_eval_output
 """
 import argparse
 import json

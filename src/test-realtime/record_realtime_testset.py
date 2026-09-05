@@ -4,7 +4,7 @@ record_realtime_testset.py - Ghi lại tập test real-time từ webcam.
 Ghi 5 mẫu cho mỗi class bằng MediaPipe Holistic, lưu raw landmarks.
 
 Cách chạy:
-    python record_realtime_testset.py --labels_file ../../configs/labels.json --output_dir realtime_test_set --samples_per_class 5
+    python record_realtime_testset.py --labels_file ../../configs/labels.json --output_dir ../../data/realtime_test_set --samples_per_class 5
 
 Điều khiển trong lúc chạy:
     r : bắt đầu ghi 1 sample cho class hiện tại (có đếm ngược 3s)
@@ -176,7 +176,7 @@ def main():
 
     parser.add_argument(
         "--output_dir",
-        default="realtime_test_set",
+        default="../../data/realtime_test_set",
         help="Thư mục lưu sample",
     )
 

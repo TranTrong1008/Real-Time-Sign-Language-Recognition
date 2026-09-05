@@ -218,7 +218,7 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Chặn đẩy các file dữ liệu (tránh vượt quá giới hạn 100MB của GitHub)
-data/*
+# data/* (Comment để cho phép push tập test realtime trong data/)
 !data/.gitkeep
 *.csv
 *.tsv
@@ -241,7 +241,7 @@ data/*
 
 # Chặn file mảng tọa độ (Rất quan trọng cho khâu trích xuất của Thành viên 2)
 *.npy
-*.npz
+# *.npz (Comment để cho phép push tập test realtime trong data/)
 
 # Chặn file mô hình Keras phiên bản mới (Bổ sung cho Thành viên 1)
 *.keras

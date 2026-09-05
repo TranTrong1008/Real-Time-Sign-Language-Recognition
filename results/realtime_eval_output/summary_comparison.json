@@ -1,20 +1,20 @@
 {
   "hands": {
-    "accuracy": 0.82,
-    "macro_precision": 0.8193681318681318,
-    "macro_recall": 0.82,
-    "macro_f1": 0.7998233248233249
+    "accuracy": 0.8666666666666667,
+    "macro_precision": 0.8792328042328043,
+    "macro_recall": 0.8666666666666667,
+    "macro_f1": 0.8543243793243794
   },
   "pose_hands": {
-    "accuracy": 0.5733333333333334,
-    "macro_precision": 0.5473605098605099,
-    "macro_recall": 0.5733333333333334,
-    "macro_f1": 0.5102823312669048
+    "accuracy": 0.5866666666666667,
+    "macro_precision": 0.5693446368446369,
+    "macro_recall": 0.5866666666666666,
+    "macro_f1": 0.5270968845968845
   },
   "holistic": {
-    "accuracy": 0.6333333333333333,
-    "macro_precision": 0.6915095398428731,
-    "macro_recall": 0.6333333333333333,
-    "macro_f1": 0.5996971084471084
+    "accuracy": 0.6466666666666666,
+    "macro_precision": 0.7199465349465349,
+    "macro_recall": 0.6466666666666666,
+    "macro_f1": 0.6158336725003392
   }
 }
